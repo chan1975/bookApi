@@ -52,15 +52,14 @@ public class BookService implements IBookService {
         Optional<Book> employee = repository.findById(entity.getId());
 
         if (employee.isPresent()) {
-            Book newEntity = employee.get();
-            newEntity.setAuth(entity.getAuth());
-            newEntity.setDescription(entity.getDescription());
-            newEntity.setName(entity.getName());
-            newEntity.setPrice(entity.getPrice());
-            newEntity.setPublishedDate(entity.getPublishedDate());
-            newEntity = repository.save(newEntity);
+            employee.get().setAuth(entity.getAuth());
+            employee.get().setDescription(entity.getDescription());
+            employee.get().setName(entity.getName());
+            employee.get().setPrice(entity.getPrice());
+            employee.get().setPublishedDate(entity.getPublishedDate());
+            repository.save(employee.get());
 
-            return newEntity;
+            return employee.get();
         } else {
             validateExistTitle(entity);
             entity = repository.save(entity);
